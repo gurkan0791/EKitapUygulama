@@ -1,19 +1,35 @@
-<%-- 
+<%--
     Document   : index
-    Created on : 10.Nis.2015, 16:03:52
-    Author     : sony
+    Created on : Jun 9, 2010, 3:59:32 PM
+    Author     : tgiunipero
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>JSP Page</title>
-    <h1>Selam</h1>
-</head>
-<body>
-    
-</body>
-</html>
+
+            <div id="indexLeftColumn">
+                <div id="welcomeText">
+                    <p>[ welcome text ]</p>
+                </div>
+            </div>
+
+            <div id="indexRightColumn">
+                <div class="categoryBox">
+                    <a href="#">
+                        <span class="categoryLabelText">dairy</span>
+                    </a>
+                </div>
+                <div class="categoryBox">
+                    <a href="#">
+                        <span class="categoryLabelText">meats</span>
+                    </a>
+                </div>
+                <div class="categoryBox">
+                    <a href="#">
+                        <span class="categoryLabelText">bakery</span>
+                    </a>
+                </div>
+                <div class="categoryBox">
+                    <a href="#">
+                        <span class="categoryLabelText">fruit & veg</span>
+                    </a>
+                </div>
+            </div>

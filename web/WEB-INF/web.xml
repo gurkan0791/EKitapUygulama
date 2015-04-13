@@ -1,19 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+       
+    <servlet>
+        <servlet-name>tr</servlet-name>
+        <!--<servlet-class>mysite.server.ComingSoonServlet</servlet-class>-->
+        <jsp-file>/WEB-INF/index.jsp</jsp-file>
+    </servlet>
+    
     <servlet>
         <servlet-name>LoginController</servlet-name>
         <servlet-class>com.ekitap.controller.LoginController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UrunlerServlet</servlet-name>
+        <servlet-class>com.ekitap.controller.UrunlerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KategoriServlet</servlet-name>
+        <servlet-class>com.ekitap.controller.KategoriServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>tr</servlet-name>
+        <url-pattern>/index.jsp/*</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
-        <url-pattern>/index.jsp</url-pattern>
+        <url-pattern>/adminlogin/*</url-pattern>
+        <url-pattern>/logout/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UrunlerServlet</servlet-name>
+        <url-pattern>/UrunlerServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KategoriServlet</servlet-name>
+        <url-pattern>/KategoriServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
+        <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <jsp-config>
+        <jsp-property-group>
+            <description>header ve footer ayar</description>
+            <url-pattern>/WEB-INF/view/user/*</url-pattern>
+            <url-pattern>/WEB-INF/index.jsp</url-pattern>
+            <url-pattern>/bos.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>
