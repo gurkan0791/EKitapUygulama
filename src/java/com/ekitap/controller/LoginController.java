@@ -39,14 +39,25 @@ public class LoginController extends HttpServlet {
         
         String userPath = request.getServletPath();
         
-        response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-        response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
-        response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-        response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+        if (request.getSession().getAttribute("calisanlar") == null) {
+            //cache temizle
+            response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+            response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+            response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+            response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+        }
         
         if (userPath.equals("/logout")) {
+            request.getSession().setAttribute("calisanlar", null);
             request.getSession().removeAttribute("calisanlar");
             request.getSession().invalidate();
+            
+            //cache temizle
+            response.setHeader("Cache-Control","no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+            response.setHeader("Cache-Control","no-store"); //Directs caches not to store the page under any circumstance
+            response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+            response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
+            
             request.getRequestDispatcher("/WEB-INF/view/adminpanel/adminlogin.jsp").forward(request, response);
            // response.sendRedirect("adminpanel.jsp");
             

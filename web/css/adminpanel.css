@@ -1,0 +1,89 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 14.Nis.2015, 15:31:44
+    Author     : Gurkan Yesilyurt <gurkan.yesilyurt@mynet.com>
+*/
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+header {
+    background-color: #333;
+    height: 40px;
+    width: 100%;
+}
+
+header #uygulamaAdi {
+    float: left;
+    color :#eee;
+}
+
+header #oturumBilgi {
+    height: 40px;
+    float : right;
+    color : wheat;
+    padding-right: 10px;
+}
+header .oturumclass {
+    cursor: pointer;
+}
+header #oturumBilgi #oturumResim {
+    float: left;
+}
+
+header #oturumBilgi #oturumIsım {
+    float:right;
+    line-height: 40px;
+}
+
+header #oturumBilgi #oturumKapa {
+    display: none;
+    border: solid 1px #333;
+    text-align: center;
+}
+
+nav {
+ font-size: 1.2em;
+ padding-right: 100px;
+ background-color: #666666;
+ float: left;
+ height: 100vh;
+}
+nav ul {
+    list-style: none;
+    display: block;
+    
+}
+
+nav li {
+   
+    padding-bottom: 20px;
+}
+
+nav span {
+ background: #722;
+ color: #fff
+}
+
+a {
+    text-decoration: none;
+}
+
+@media only screen and (max-width : 300px) {
+    #oturumBilgi {
+        display: none;
+    }
+}
+
+/* iPads (portrait) ———– */ 
+@media only screen and (min-width : 768px) and (max-width : 1024px)  { 
+    #oturumBilgi {
+        background-color: red;
+        text-overflow: clip;
+    }
+}
