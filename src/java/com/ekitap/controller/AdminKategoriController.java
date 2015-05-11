@@ -6,8 +6,13 @@
 
 package com.ekitap.controller;
 
+import com.ekitap.beans.KategoriBean;
+import com.ekitap.model.KategoriDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,16 +36,65 @@ public class AdminKategoriController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+         ArrayList<KategoriBean> liste = null;
         String adminPath = request.getServletPath();
+//        RequestDispatcher rdisp = null;
+        String katadi = request.getParameter("katadi");
+        String katID = request.getParameter("altKatID");
+//        System.out.println("Katid"+katID);
+        if (adminPath.equals("/kategorigoster")) {
+           liste= KategoriDAO.getKategoriListele();
+            if (liste != null) {
+                request.setAttribute("katliste", liste);
+            }
+            String url = "/WEB-INF/view/adminpanel" + adminPath + ".jsp";
         
-        if (adminPath.equals("/KategoriEkle")) {
+            request.getRequestDispatcher(url).forward(request, response);
+        }else if (adminPath.equals("/kategoriekle")){
+            if (katadi == null || katadi.trim().isEmpty()) {
+                adminPath = "/kategoriekle";
+                String url = "/WEB-INF/view/adminpanel" + adminPath + ".jsp";
+                    liste= KategoriDAO.getKategoriListele();
+                    
+                     if (liste != null) {
+                        request.setAttribute("katliste", liste);
+                    }
+                request.getRequestDispatcher(url).forward(request, response);
+            }else{
+               
+                KategoriBean kategori = new KategoriBean(0,Integer.parseInt(request.getParameter("katidd")),
+                    request.getParameter("katadi"),
+                    request.getParameter("aciklama"), "bos");
+                String durum = KategoriDAO.setKategoriEkle(kategori);
+                if (durum.equals("Basarili")) {
+                    request.setAttribute("durum", durum);
+                    liste= KategoriDAO.getKategoriListele();
+                    
+                     if (liste != null) {
+                        request.setAttribute("katliste", liste);
+                    }
+                    //adminPath = "/kategorigoster";
+                     if (katID == null) {
+                        katID="0";
+                    }
+                    response.sendRedirect("/kategorigoster?altKatID="+katID);
+                }else{
+                    request.setAttribute("durum", "Kategori Zaten mevcut");
+                    adminPath = "/kategoriekle";
+                    String url = "/WEB-INF/view/adminpanel" + adminPath + ".jsp";
+        
+                    request.getRequestDispatcher(url).forward(request, response);
+                }
+            }
             
+        }else if(adminPath.equals("/kategoriguncelle")){
+            adminPath = "/kategoriekle";
+            String url = "/WEB-INF/view/adminpanel" + adminPath + ".jsp";
+        
+             request.getRequestDispatcher(url).forward(request, response);
         }
         
-        String url = "/WEB-INF/view/adminpanel" + adminPath + ".jsp";
         
-        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

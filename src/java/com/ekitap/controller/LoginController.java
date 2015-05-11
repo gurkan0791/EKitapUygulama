@@ -100,6 +100,7 @@ public class LoginController extends HttpServlet {
             }else{
                 view = request.getRequestDispatcher("/WEB-INF/view/adminpanel/adminlogin.jsp");
            // response.sendRedirect("adminpanel.jsp");
+                request.setAttribute("uyari", "Şifre veya Parola Yanlış!");
                 view.forward(request, response);
             }
             

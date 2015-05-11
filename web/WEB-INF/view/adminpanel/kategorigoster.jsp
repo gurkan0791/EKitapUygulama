@@ -1,6 +1,6 @@
 <%-- 
-    Document   : kategoriekle
-    Created on : 18.Nis.2015, 21:47:44
+    Document   : kategorigoster
+    Created on : 18.Nis.2015, 23:51:46
     Author     : Gurkan Yesilyurt <gurkan.yesilyurt@mynet.com>
 --%>
 
@@ -19,8 +19,8 @@
     
 </head>
 <body>
-   <jsp:include page="aheader.jsp"></jsp:include>
-   <div class="container" style="width: 100%;">
+    <jsp:include page="aheader.jsp"></jsp:include>
+<div class="container" style="width: 100%;">
     <div class="row">
  <div class="col-md-3 col-lg-2">
     <ul  class="nav nav-pills nav-stacked">
@@ -38,16 +38,26 @@
     </ul>
  </div>
         <div class="col-md-9 col-lg-10">
-            
-    <form action="/kategoriekle" method="post">
-    Ana Kategori    
-<div id="scrollkategori" style="height: 150px; overflow: scroll;">
-    <ul>
-                <li><input type="radio" name="katidd" value="0"></input>Root
+            <div id="katblog">
+    <a href="/kategoriekle" >KategoriEkle</a>
+    
+</div>
+   <c:if test="${not empty requestScope.durum}">
+        <c:out value="${requestScope.durum}"></c:out>
+    </c:if>
+<table  class="table table-hover">
+    <tr>
+    <th>ID</th>
+    <th>ALTID</th>
+    <th>AD</th>
+    <th>Açıklama</th>
+    <th>Güncelle</th>
+    </tr>
+
     <c:forEach items="${katliste}" var="i">
-        
+        <c:if test="${i.altKategoriID eq param.altKatID}">
             
-<!--        <tr>
+        <tr>
             
             <td> <c:out value="${i.kategoriID}"></c:out> </td>
             <td><c:out value="${i.altKategoriID}"></c:out></td>
@@ -56,49 +66,18 @@
             </a>
             <%--<c:out value="${i.kategoriResimUrl}"></c:out>--%>
             <td><a href="/kategoriguncelle?katID=<c:out value="${i.kategoriID}"></c:out>">Düzenle</a></td>
-        </tr>-->
-            
-            <ul style="margin-left: 20px;">
-            <c:set value="${i.kategoriID}" var="ustID"></c:set>    
-            <c:if test="${i.altKategoriID eq 0}">
-                <li><input type="radio" name="katidd" value="${i.kategoriID}"></input> ${i.kategoriADI}
-                    <c:forEach items="${katliste}" var="j">
-                        <c:set value="${j.kategoriID}" var="austID"></c:set>
-                    <ul style="margin-left: 40px;">
-                        <c:if test="${ustID eq j.altKategoriID}">
-                            <li><input type="radio" name="katidd" value="${j.kategoriID}"></input>${j.kategoriADI}
-                                <c:forEach items="${katliste}" var="k">
-                                    <ul style="margin-left:60px;">
-                                        <c:if test="${austID eq k.altKategoriID}">
-                                        <li>${k.kategoriADI}</li>
-                                        </c:if>
-                                    </ul>
-                                </c:forEach>
-                            </li>
-                        </c:if>
-                    </ul>
-                    </c:forEach>
-                </li>
-                
-            </c:if>
-       
-            </ul>
+        </tr>
+        
+        </c:if>
     </c:forEach>
-</li>
-</ul>
+</table>  
+
             
+        </div>  
+        
+        
+    </div>       
 </div>
-        <pre>
-        * Adı    : <input type="text" name="katadi"></input>
-        Açıklama : <textarea cols="40" rows="20" name="aciklama"></textarea>
-        <input type="submit" value="Ekle"></input>
-        </pre>
-    </form>
-            
-        </div> 
-    </div>
-   </div><!--container-->
-   
-    
+
 </body>
 </html>

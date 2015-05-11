@@ -28,6 +28,9 @@ header #oturumBilgi {
     float : right;
     color : wheat;
     padding-right: 10px;
+    background-color: #666666;
+    position: relative;
+    z-index: 9999;
 }
 header .oturumclass {
     cursor: pointer;
@@ -41,13 +44,15 @@ header #oturumBilgi #oturumIsım {
     line-height: 40px;
 }
 
-header #oturumBilgi #oturumKapa {
+header #oturumBilgi #oturumKapa, #oturumKapa {
     display: none;
     border: solid 1px #333;
     text-align: center;
+    background-color: #666666;
+    z-index: 9999;
 }
 
-nav {
+/*nav {
  font-size: 1.2em;
  padding-right: 100px;
  background-color: #666666;
@@ -68,7 +73,7 @@ nav li {
 nav span {
  background: #722;
  color: #fff
-}
+}*/
 
 a {
     text-decoration: none;

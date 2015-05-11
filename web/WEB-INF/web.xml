@@ -21,6 +21,10 @@
         <servlet-name>AdminKategoriController</servlet-name>
         <servlet-class>com.ekitap.controller.AdminKategoriController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminUrunController</servlet-name>
+        <servlet-class>com.ekitap.controller.AdminUrunController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tr</servlet-name>
         <url-pattern>/index.jsp/*</url-pattern>
@@ -40,10 +44,18 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminKategoriController</servlet-name>
-        <url-pattern>/kategorilistele/*</url-pattern>
-        <url-pattern>/kategoriekle/*</url-pattern>
+        <url-pattern>/kategorigoster/*</url-pattern>
+        <url-pattern>/kategoriekle</url-pattern>
         <url-pattern>/kategorisil/*</url-pattern>
         <url-pattern>/kategoriguncelle/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUrunController</servlet-name>
+        <url-pattern>/urungoster/*</url-pattern>       
+        <url-pattern>/urunekle/*</url-pattern>
+        <url-pattern>/urunguncelle/*</url-pattern>
+        <url-pattern>/yazarekle/*</url-pattern>
+        <url-pattern>/yayineviekle/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
