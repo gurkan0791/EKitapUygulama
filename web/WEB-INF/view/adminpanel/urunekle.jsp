@@ -42,7 +42,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab">Bilgi</a></li>
             <li><a href="#profile" data-toggle="tab">Fiyat</a></li>
-            <li><a href="#messages" data-toggle="tab">Kategori</a></li>
+            <li><a href="#messages" data-toggle="tab">Ozellik</a></li>
             <li><a href="#settings" data-toggle="tab">Resim</a></li>
         </ul>
  
@@ -51,37 +51,7 @@
             
                 <div class="tab-pane active" id="home">
                     
-                    <label for="yazaradi">Yazar Adı</label>
-                    <select class="form-control" name="yazar" id="yazaradi">
-                        <c:forEach items="${yazarliste}" var="i">
-                            <option value="${i.yazarID}">${i.yazarAd}</option>  
-                        </c:forEach>
-                    </select>
-                    <a href="#" id="yazarekleclick" >Yeni yazar ekle</a>  <br/>
-                 <div  style="display: none;" class="form-group" id="yazarekledisp">
-                     
-                  <input type="text" class="form-control" name="yazarad" id="yazarad" placeholder="Yazar Adı giriniz" />
-                  <input type="text" class="form-control" name="yazarsoyad" id="yazarsoyad" placeholder="Yazar Soyad" />
-                  <input type="text" class="form-control" name="yazarmail" id="yazarmail" placeholder="Yazar email" />
-                  <a href="#" id="yazekle" >kaydet</a>
-                </div>
-                    
-                    <!---->
-                    
-                     <label for="yazaradi">YayinEvi</label>
-                    <select class="form-control" name="yayin" id="yayinadi">
-                        <c:forEach items="${yayinliste}" var="i">
-                            <option value="${i.yayinID}">${i.ad}</option>  
-                        </c:forEach>
-                    </select>
-                    <a href="#" id="yayinekleclick" >Yeni yayin evi ekle</a>  
-                 <div  style="display: none;" class="form-group" id="yayinekledisp">
-                     
-                  <input type="text" class="form-control" name="yayinad" id="yayinad" placeholder="Yayin evi adi" />
-                  <input type="text" class="form-control" name="yayinadres" id="yayinadres" placeholder="adres" />
-                  <input type="text" class="form-control" name="yayinmail" id="yayinmail" placeholder="email" />
-                  <a href="#" id="yayekle" >kaydet</a>
-                </div>
+                   
                     <br />
                     <!---->
                     <label for="scrollkategori"> Ana Kategori</label>    
@@ -114,7 +84,7 @@
                                 <c:forEach items="${katliste}" var="k">
                                     <ul style="margin-left:60px;">
                                         <c:if test="${austID eq k.altKategoriID}">
-                                        <li>${k.kategoriADI}</li>
+                                            <li><input type="radio" name="katidd" value="${k.kategoriID}"</input>${k.kategoriADI}</li>
                                         </c:if>
                                     </ul>
                                 </c:forEach>
@@ -150,6 +120,37 @@
             <div class="tab-pane" id="profile">2. İçerik Alanı</div>
             <div class="tab-pane" id="messages">
                 3. içerik alanı
+                 <label for="yazaradi">Yazar Adı</label>
+                    <select class="form-control" name="yazar" id="yazaradi">
+                        <c:forEach items="${yazarliste}" var="i">
+                            <option value="${i.yazarID}">${i.yazarAd}</option>  
+                        </c:forEach>
+                    </select>
+                    <a href="#" id="yazarekleclick" >Yeni yazar ekle</a>  <br/>
+                 <div  style="display: none;" class="form-group" id="yazarekledisp">
+                     
+                  <input type="text" class="form-control" name="yazarad" id="yazarad" placeholder="Yazar Adı giriniz" />
+                  <input type="text" class="form-control" name="yazarsoyad" id="yazarsoyad" placeholder="Yazar Soyad" />
+                  <input type="text" class="form-control" name="yazarmail" id="yazarmail" placeholder="Yazar email" />
+                  <a href="#" id="yazekle" >kaydet</a>
+                </div>
+                    
+                    <!---->
+                    
+                     <label for="yazaradi">YayinEvi</label>
+                    <select class="form-control" name="yayin" id="yayinadi">
+                        <c:forEach items="${yayinliste}" var="i">
+                            <option value="${i.yayinID}">${i.ad}</option>  
+                        </c:forEach>
+                    </select>
+                    <a href="#" id="yayinekleclick" >Yeni yayin evi ekle</a>  
+                 <div  style="display: none;" class="form-group" id="yayinekledisp">
+                     
+                  <input type="text" class="form-control" name="yayinad" id="yayinad" placeholder="Yayin evi adi" />
+                  <input type="text" class="form-control" name="yayinadres" id="yayinadres" placeholder="adres" />
+                  <input type="text" class="form-control" name="yayinmail" id="yayinmail" placeholder="email" />
+                  <a href="#" id="yayekle" >kaydet</a>
+                </div>
                <div class="form-group">
                   <label for="exampleInputFile">File input</label>
                   <input type="file" id="exampleInputFile">

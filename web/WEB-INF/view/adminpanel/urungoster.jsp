@@ -60,7 +60,7 @@
             <td> <c:out value="${i.aciklama}"></c:out></td>
             </a>
             <%--<c:out value="${i.kategoriResimUrl}"></c:out>--%>
-            <td><a href="/urunguncelle?urunID=<c:out value="${i.kitapID}"></c:out>">Düzenle</a></td>
+            <td><a href="/urunguncelle?urunID=${i.kitapID}">Düzenle</a></td>
         </tr>
         
     </c:forEach>

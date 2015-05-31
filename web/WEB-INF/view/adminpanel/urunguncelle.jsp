@@ -15,6 +15,7 @@
             <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/adminpanel.css">
         <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery.ajaxfileupload.js"></script>
     <title>JSP Page</title>
     
 </head>
@@ -42,46 +43,17 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#home" data-toggle="tab">Bilgi</a></li>
             <li><a href="#profile" data-toggle="tab">Fiyat</a></li>
-            <li><a href="#messages" data-toggle="tab">Kategori</a></li>
+            <li><a href="#stokid" data-toggle="tab">Stok</a></li>
+            <li><a href="#messages" data-toggle="tab">Ozellik</a></li>
             <li><a href="#settings" data-toggle="tab">Resim</a></li>
         </ul>
  
         <!-- Tab panes -->
-        <form class="tab-content" action="urunekle" id="yazarform" >
+        <form class="tab-content" action="urunekle" id="yazarform" method="GET">
             
                 <div class="tab-pane active" id="home">
                     
-                    <label for="yazaradi">Yazar Adı</label>
-                    <select class="form-control" name="yazar" id="yazaradi">
-                        <c:forEach items="${yazarliste}" var="i">
-                            <option value="${i.yazarID}">${i.yazarAd}</option>  
-                        </c:forEach>
-                    </select>
-                    <a href="#" id="yazarekleclick" >Yeni yazar ekle</a>  <br/>
-                 <div  style="display: none;" class="form-group" id="yazarekledisp">
-                     
-                  <input type="text" class="form-control" name="yazarad" id="yazarad" placeholder="Yazar Adı giriniz" />
-                  <input type="text" class="form-control" name="yazarsoyad" id="yazarsoyad" placeholder="Yazar Soyad" />
-                  <input type="text" class="form-control" name="yazarmail" id="yazarmail" placeholder="Yazar email" />
-                  <a href="#" id="yazekle" >kaydet</a>
-                </div>
-                    
-                    <!---->
-                    
-                     <label for="yazaradi">YayinEvi</label>
-                    <select class="form-control" name="yayin" id="yayinadi">
-                        <c:forEach items="${yayinliste}" var="i">
-                            <option value="${i.yayinID}">${i.ad}</option>  
-                        </c:forEach>
-                    </select>
-                    <a href="#" id="yayinekleclick" >Yeni yayin evi ekle</a>  
-                 <div  style="display: none;" class="form-group" id="yayinekledisp">
-                     
-                  <input type="text" class="form-control" name="yayinad" id="yayinad" placeholder="Yayin evi adi" />
-                  <input type="text" class="form-control" name="yayinadres" id="yayinadres" placeholder="adres" />
-                  <input type="text" class="form-control" name="yayinmail" id="yayinmail" placeholder="email" />
-                  <a href="#" id="yayekle" >kaydet</a>
-                </div>
+                   
                     <br />
                     <!---->
                     <label for="scrollkategori"> Ana Kategori</label>    
@@ -105,16 +77,16 @@
             <ul style="margin-left: 20px;">
             <c:set value="${i.kategoriID}" var="ustID"></c:set>    
             <c:if test="${i.altKategoriID eq 0}">
-                <li><input type="radio" name="katidd" value="${i.kategoriID}"></input> ${i.kategoriADI}
+                <li><input id="${i.kategoriID}" type="radio" name="katidd" value="${i.kategoriID}"></input> ${i.kategoriADI}
                     <c:forEach items="${katliste}" var="j">
                         <c:set value="${j.kategoriID}" var="austID"></c:set>
                     <ul style="margin-left: 40px;">
                         <c:if test="${ustID eq j.altKategoriID}">
-                            <li><input type="radio" name="katidd" value="${j.kategoriID}"></input>${j.kategoriADI}
+                            <li><input type="radio" id="${j.kategoriID}" name="katidd" value="${j.kategoriID}"></input>${j.kategoriADI}
                                 <c:forEach items="${katliste}" var="k">
                                     <ul style="margin-left:60px;">
                                         <c:if test="${austID eq k.altKategoriID}">
-                                        <li>${k.kategoriADI}</li>
+                                        <li><input id="${k.kategoriID}" type="radio" name="katidd" value="${k.kategoriID}"</input>${k.kategoriADI}</li>
                                         </c:if>
                                     </ul>
                                 </c:forEach>
@@ -132,37 +104,146 @@
 </ul>
             
 </div>    
+                    
+                        <script type='text/javascript'>
+                            $(document).ready(function (){
+                                var button = "${guncelurun[0].kategoriID}";
+                                <c:forEach items="${katliste}" var="i">
+                                    
+                                    if(button == ${i.kategoriID})
+                                    {
+                                       
+                                       // document.getElementById(button).checked = true;
+                                        $("#"+button).prop("checked", true)
+                                    }
+                                </c:forEach>
+                                
+                            });
+            
+            
+                        
+                    </script>
                 <div class="form-group">
                   <label for="adi">*ADI</label>
-                  <input type="text" class="form-control" name="adi" id="adi" placeholder="Ürün Adı" required>
+                  <input type="text" class="form-control" name="adi" id="adi" placeholder="Ürün Adı" value="${guncelurun[0].kitapAD}" required>
                 </div>
                 <div class="form-group">
                   <label for="aciklama">Açıklama</label>
-                  <textarea class="form-control" id="aciklama" name="aciklama" rows="3" placeholder="Ürün Açıklama Yazısı" ></textarea>
+                  <textarea class="form-control" id="aciklama" name="aciklama" rows="3" placeholder="Ürün Açıklama Yazısı">${guncelurun[0].aciklama}</textarea>
                 </div>
                     
                     
                     
                 
-                    <input type="submit" value="Kaydet">
+                    <input type="button" id="urunbilgiekle" value="Kaydet">
 
                 </div>
-            <div class="tab-pane" id="profile">2. İçerik Alanı</div>
+                <div class="tab-pane" id="profile">
+                    
+                    <div class="form-group">
+                        <%--<c:forEach items="${fiyatliste}" var="i">--%>
+                 <label for="yazaradi">Vergi öncesi satış fiyatı</label>
+                 <input type="text" class="form-control" name="vergionce" id="vergionce" value="${fiyatliste[0].vergisiz}">
+                     <label for="yazaradi">Vergi dahil satış fiyatı KDV %18</label>
+                 <input type="text" class="form-control" name="vergisonra" id="vergisonra" value="${fiyatliste[0].vergili}">
+                     <input id="fiyatekle" type="button" value="Kaydet">
+                         <%--</c:forEach>--%>
+                    </div>
+                    
+                     
+                     
+                 
+                    
+                </div>
+                 
+                <script>
+                    //kdv hesapla
+                  $(document).ready(function () {
+                        $('#vergionce').keyup(function () { 
+                          var a=  Number($('#vergionce').val())+ Number($('#vergionce').val()*(18/100));
+                          $('#vergisonra').val(a);
+                         });
+                         $('#vergisonra').keyup(function () { 
+                          var a=  Number($('#vergisonra').val())+ Number($('#vergisonra').val()*(18/100));
+                          $('#vergionce').val(a);
+                         });
+                    });
+                    
+                </script>
+                    <div class="tab-pane" id="stokid">
+                        <div class="form-group">
+                        <%--<c:forEach items="${fiyatliste}" var="i">--%>
+                 <label for="stok">Stok</label>
+                 <input type="text" class="form-control" name="stok" id="stok" value="${stokliste[0].stok}">
+                     
+                     <input id="stokekle" type="button" value="Kaydet">
+                         <%--</c:forEach>--%>
+                    </div>
+                    </div>
             <div class="tab-pane" id="messages">
-                3. içerik alanı
-               <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Check me out
-                  </label>
-                </div>
-              <input type="submit" value="Kaydet">  
+<!--                3. içerik alanı
+                <div class="form-group">
+                 <label for="yazaradi">Yazar Adı</label>
+                 <input type="text" class="form-control" name="field1" id="yazaradi" >
+  
+                 <label for="yayinadi">YayinEvi</label>
+                 <input type="text" class="form-control" name="field2" id="yayinadi" >
+                 
+                     <label for="isbn">ISBN/BARKOD</label>
+                 <input type="text" class="form-control" name="field3" id="isbn" >
+                     
+                     <label for="ksayfa">Sayfa</label>
+                 <input type="text" class="form-control" name="field4" id="ksayfa" >
+                     
+                     <label for="ebat">Ebat</label>
+                 <input type="text" class="form-control" name="field5" id="ebat" >
+               </div>
+              -->
+              
+                  <div class="form-group">
+                      <c:set value="0" var="sayac" scope="page"></c:set>    
+                  <c:forEach items="${ozellikliste}" var="i">
+                    <c:set value="${sayac +1}" var="sayac" scope="page"></c:set>
+                    <label for="${i.ozellik}">${i.gorunurAD}</label>
+                    <input type="hidden" name="ofield${sayac}" value="${i.ID}"></input>
+                    <input type="text" class="form-control" name="field${sayac}" id="field${sayac}" value="${urunozellikliste[sayac-1].deger}">  
+                  </c:forEach>
+                  </div>
+                  <input type="button" value="Kaydet" id="ozellikekle">  
             </div>
-            <div class="tab-pane" id="settings">BilgiSayaci.Org</div>
+            <div class="tab-pane" id="settings">Resim
+            
+                 <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <input type="file" name=file id="exampleInputFile">
+                  <p class="help-block">Example block-level help text here.</p>
+                  <div id="upload" style="display: none;">Uploading..</div>
+                        <div id="message"></div>
+                </div>
+                
+                        <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">Ürün Resim</div>
+                        <div class="panel-body">
+                          <p>Ürün Resimleri Listelenmektedir</p>
+                        </div>
+
+                        <!-- Table -->
+                        <table class="table">
+                           <c:forEach items="${resimliste}" var="i">
+                     
+                               <tr>
+                                   <td>
+                        <img  width="100" height="100" src="<%=request.getContextPath()%>/resimler/${i.url}" alt="Smiley face" >
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger urunsil" value="${i.resimID}" >Sil</button>
+                        </td>
+                        </tr>
+                        </c:forEach>
+                        </table>
+                      </div> 
+            </div>
             
         </form>
 
@@ -173,6 +254,39 @@
    </div>
    
    <script>
+      //resim ekle
+       $('input[type="file"]').click(function() {
+      
+    var a= ${param.urunID};
+    if(typeof a == "undefined" || a == null || a.length<0){
+        alert("Lütfen Urun Seçin");
+        return;
+    }
+  $('input[type="file"]').ajaxfileupload({
+      'action' : "<%=request.getContextPath()%>/"+'resimekle?urunID='+a,
+  'onComplete' : function(response) {
+      $('#upload').hide();
+      $('#message').show();
+                        
+      var statusVal = JSON.stringify(response.status);
+
+     if(statusVal == "false")
+     {
+     $("#message").html("<font color='red'>"+JSON.stringify(response.message)+"</font>");
+     }  
+     if(statusVal == "true")
+     {
+     $("#message").html("<font color='green'>"+JSON.stringify(response.message)+"</font>");
+     }        
+     setTimeout(function() { location.reload() },2000);
+},
+'onStart' : function() {
+        $('#upload').show();
+        $('#message').hide();
+}
+});
+
+});
       
        $(document).ready(function(){
            $('#yazarekleclick').click(function (){
@@ -261,7 +375,94 @@
                    return false;
                  });
                  
+                 $("#fiyatekle").click(function(){
+                    // var a  = document.getElementById('vergionce').value;
+                    //var b  = document.getElementById('vergisonra').value;
+                    var a= ${param.urunID};
+                  
+                           var form_data = $("#yazarform").serialize();
+                           $.ajax({
+                           url: "<%=request.getContextPath()%>/fiyatekle?urunID="+a,
+                           type: 'GET',
+                           data: form_data,
+                           success: function (data) {
+                               setTimeout(function() { location.reload() },1000);
+                              
+                               
+                           }
+                         
+                   });
+                   return false;
+                 });
+                
+                $("#stokekle").click(function(){
+                    // var a  = document.getElementById('vergionce').value;
+                    //var b  = document.getElementById('vergisonra').value;
+                    var a= ${param.urunID};
+                  
+                           var form_data = $("#yazarform").serialize();
+                           $.ajax({
+                           url: "<%=request.getContextPath()%>/stokekle?urunID="+a,
+                           type: 'GET',
+                           data: form_data,
+                           success: function (data) {
+                               setTimeout(function() { location.reload() },1000);
+                              
+                               
+                           }
+                         
+                   });
+                   return false;
+                 });
+                
+                
+               $('.urunsil').click(function (){
+               var id = $(this).attr("value");
+               
                });
+              
+                $("#ozellikekle").click(function(){
+                   //  var a  = document.getElementById('vergionce').value;
+                   // var b  = document.getElementById('vergisonra').value;
+                    var a= ${param.urunID};
+                  
+                           var form_data = $("#yazarform").serialize();
+                           $.ajax({
+                           url: "<%=request.getContextPath()%>/ozellikekle?urunID="+a,
+                           type: 'GET',
+                           data: form_data,
+                           success: function (data) {
+                               setTimeout(function() { location.reload() },1000);
+                              
+                               
+                           }
+                         
+                   });
+                   return false;
+                 });
+                     $("#urunbilgiekle").click(function(){
+                   //  var a  = document.getElementById('vergionce').value;
+                   // var b  = document.getElementById('vergisonra').value;
+                    var a= ${param.urunID};
+                  
+                           var form_data = $("#yazarform").serialize();
+                           $.ajax({
+                           url: "<%=request.getContextPath()%>/urunekle?urunID="+a,
+                           type: 'GET',
+                           data: form_data,
+                           success: function (data) {
+                               setTimeout(function() { location.reload() },1000);
+                              
+                               
+                           }
+                         
+                   });
+                   return false;
+                 });
+               
+               });
+               
+               
    </script>
 </body>
 </html>

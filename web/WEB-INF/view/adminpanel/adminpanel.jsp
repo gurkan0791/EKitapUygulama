@@ -52,7 +52,7 @@
             
         </script>
     </head>
-<body>
+    <body style="padding-top: 70px;">
     
     <header>
         <div id="uygulamaAdi">Yönetim Paneli</div>

@@ -5,10 +5,17 @@
 --%>
 
 
-            <div id="footer">
+<!--            <div id="footer">
                 <hr>
                 <p id="footerText">[ footer text ]</p>
-            </div>
-        </div>
+            </div>-->
+<footer>
+  <div class="container">
+    <p>&nbsp;</p>
+    <p class="lead">This Bootstrap layout was made @<a href="">Bootply.com</a></p>
+  </div>
+</footer>
+       
+        
     </body>
 </html>

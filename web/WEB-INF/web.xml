@@ -3,7 +3,8 @@
     <servlet>
         <servlet-name>tr</servlet-name>
         <!--<servlet-class>mysite.server.ComingSoonServlet</servlet-class>-->
-        <jsp-file>/WEB-INF/index.jsp</jsp-file>
+        <!--<jsp-file>/WEB-INF/index.jsp</jsp-file>-->
+        <servlet-class>com.ekitap.controller.AnasayfaController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -25,14 +26,21 @@
         <servlet-name>AdminUrunController</servlet-name>
         <servlet-class>com.ekitap.controller.AdminUrunController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UrunController</servlet-name>
+        <servlet-class>com.ekitap.controller.UrunController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>tr</servlet-name>
         <url-pattern>/index.jsp/*</url-pattern>
+        <url-pattern>/Home/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/adminlogin/*</url-pattern>
         <url-pattern>/logout/*</url-pattern>
+        <url-pattern>/register/*</url-pattern>
+        <url-pattern>/userlogin/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UrunlerServlet</servlet-name>
@@ -51,11 +59,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminUrunController</servlet-name>
-        <url-pattern>/urungoster/*</url-pattern>       
+        <url-pattern>/urungoster/*</url-pattern>
         <url-pattern>/urunekle/*</url-pattern>
         <url-pattern>/urunguncelle/*</url-pattern>
         <url-pattern>/yazarekle/*</url-pattern>
         <url-pattern>/yayineviekle/*</url-pattern>
+        <url-pattern>/resimekle/*</url-pattern>
+        <url-pattern>/fiyatekle/*</url-pattern>
+        <url-pattern>/ozellikekle/*</url-pattern>
+        <url-pattern>/stokekle/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UrunController</servlet-name>
+        <url-pattern>/kitap/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

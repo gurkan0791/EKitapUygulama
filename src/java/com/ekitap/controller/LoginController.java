@@ -7,9 +7,11 @@
 package com.ekitap.controller;
 
 import com.ekitap.beans.CalisanlarBean;
+import com.ekitap.beans.MusteriBean;
 import com.ekitap.model.GirisDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -61,7 +63,7 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/view/adminpanel/adminlogin.jsp").forward(request, response);
            // response.sendRedirect("adminpanel.jsp");
             
-        }else{
+        }else if(userPath.equals("/adminlogin")){
         
         Map<String, String> messages = new HashMap<String, String>();
         request.setAttribute("messages", messages);
@@ -115,7 +117,56 @@ public class LoginController extends HttpServlet {
         }
         
     }
-       
+        else if (userPath.equals("/userlogin")){
+            String ad = request.getParameter("email");
+            String sifre = request.getParameter("sifre");
+            MusteriBean musteri = GirisDAO.getYetkiliMusteri(ad, sifre);
+            
+            if (musteri != null) {
+                request.getSession().setAttribute("kullanici", musteri);
+                response.sendRedirect("/");
+            }else{
+                
+            }
+        
+        }
+        else if (userPath.equals("/register")){
+            Map<String, String> messages = new HashMap<String, String>();
+            
+            String ad = request.getParameter("ad");
+            String soyad = request.getParameter("soyad");
+            String email = request.getParameter("email");
+            String sifre = request.getParameter("sifre");
+            String sifreTekrar = request.getParameter("sifretekrar");
+            
+            if (sifre!=null) {
+                if (!sifre.equals(sifreTekrar)) {
+                request.setAttribute("ad", ad);
+                request.setAttribute("soyad", soyad);
+                request.setAttribute("email", email);
+                
+                messages.put("sifre", "Şifreler uyuşmuyor!");
+                request.setAttribute("messages", messages);
+                request.getRequestDispatcher("/WEB-INF/view/user"+userPath+".jsp").forward(request, response);
+                }else {
+                    MusteriBean durum = GirisDAO.setMusteri(new MusteriBean(0, ad, soyad, email, sifre));
+                  
+                    if (durum != null) {
+                        System.out.println("Başarılı");
+                        request.getSession().setAttribute("kullanici", durum);
+                        response.sendRedirect("/");
+                    }else{
+                    
+                    }
+                  
+                }
+            }else{
+                
+            request.getRequestDispatcher("/WEB-INF/view/user"+userPath+".jsp").forward(request, response);
+           // response.sendRedirect("adminpanel.jsp");
+            }
+            
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
